@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+
+.bg-primary{
+    @apply bg-[#273B67] ;
+
+}
+
+
+.container{
+    /* @apply mx-auto px-4; */
+    @apply max-w-7xl mx-auto 
+}

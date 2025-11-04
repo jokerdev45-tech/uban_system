@@ -1,0 +1,36 @@
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import AdminDashboard from "./pages/AdminDashboard";
+import PhoneOTPModal from "./components/OTPPage";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const App: React.FC = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+
+      <Route
+        path="/dashboard"
+        element={
+          <Layout>
+            <AdminDashboard />
+          </Layout>
+        }
+      />
+
+      {/* OTP modal route is also under home layout */}
+      <Route
+        path="/verify-phone/:userId"
+        element={
+          <Layout>
+            <PhoneOTPModal />
+          </Layout>
+        }
+      />
+    </Routes>
+  );
+};
+
+export default App;

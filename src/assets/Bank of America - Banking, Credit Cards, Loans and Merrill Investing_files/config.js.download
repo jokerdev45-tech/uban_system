@@ -1,0 +1,303 @@
+const ddo = window.digitalData || {};
+ddo.page = ddo.page || {};
+ddo.page.attributes = ddo.page.attributes || {};
+ddo.page.attributes.glassbox = ddo.page.attributes.glassbox || {};
+
+digitalData.page.attributes.glassbox.config = {
+
+
+
+                                    domRecordEnabled: false,
+                                    domTamperingGraceTime: 5000,
+                                    reportURI: "https://glassbox-hlx-igw.bankofamerica.com/glassbox/reporting/aab600df-ed6d-5f46-dada-9c5376520067/cls_report",
+                                    interceptAjax: true,
+                                    ajaxRecordMetadata: "always",
+                                    ajaxRecordRequestBody: "never",
+                                    ajaxRecordRequestHeaders: "always",
+                                    ajaxRecordResponseBody: "never",
+                                    ajaxRecordResponseHeaders: "always",
+                                    ajaxRecordStats: "always",
+                                    ajaxCaptureRequestCookie: true,
+                                    ajaxResponseBodyMaxLength: -1,
+                                    ajaxMaskRequestBody: [{
+                                        predicate: "always",
+                                        transformations: [{
+                                            type: "jsonfield",
+                                            search: "dateOfBirth",
+                                            replace: "XXXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "newPassword",
+                                            replace: "XXXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "securityPin",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "answer",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "pin",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "displayId",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "taxId",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "id",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "tin",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "accountNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "accountnumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "debitCardAccountNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "debitCardExpMonth",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "debitCardExpYear",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "debitCardCVV",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "birthDateDisplay",
+                                            replace: "XXXX"
+                                        }]
+                                    }],
+                                    ajaxMaskResponseBody: [{
+                                        predicate: "always",
+                                        transformations: [{
+                                            type: "jsonfield",
+                                            search: "dateOfBirth",
+                                            replace: "XXXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "newPassword",
+                                            replace: "XXXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "securityPin",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "answer",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "pin",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "displayId",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "taxId",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "id",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "tin",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "number",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "accountNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "accountnumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "fromAccountNum",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "formattedAccountNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "routingNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "wireRoutingNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "displayId",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "taxIDNumber",
+                                            replace: "XXXX"
+                                        }, {
+                                            type: "jsonfield",
+                                            search: "birthDateDisplay",
+                                            replace: "XXXX"
+                                        }]
+                                    }],
+                                    idleEventTimeInterval: -1,
+                                    iframesAutoInject: true,
+                                    recordHovers: true,
+                                    recordMouseMoves: true,
+                                    recordScrolls: true,
+                                    reportToStorageAfterUnload: true,
+                                    valueMaskingMode: "whitelist",
+                                    maskWhitelistValueById: [],
+                                    maskBlacklistValueById: [],
+                                    maskWhitelistValueByClass: ["gb_unmask"],
+                                    maskBlacklistValueByClass: ["gb_mask"],
+                                    valueWhitelistMaskSimpleSelector: [],
+                                    valueBlacklistMaskSimpleSelector: [],
+                                    domMaskingMode: "blacklist",
+                                    domWhitelistMaskContentById: [],
+                                    domBlacklistMaskContentById: [],
+                                    domWhitelistMaskContentByClass: ["gb_unmask"],
+                                    domBlacklistMaskContentByClass: ["gb_mask"],
+                                    domWhitelistMaskSimpleSelector: [],
+                                    domBlacklistMaskSimpleSelector: ["#ssn", "#ssNumber", "img[src^='https://smetrics'\]", ".gis-mask", ".tl-private", ".gis-mask-original", ".gis-mask-input", ".gis-mask-value", "[data-field-type='mmddyyyy']", "[data-field-type= 'ssn']", '[data-field-type="email"]', '[data-field-type="phonePrefill"]', '[data-field-type="phone"]', '[data-field-type="date"]', ".gis-masked", ".gis-masking", "#zz_ssn", "#zz_ssn_show", "#account_number_masked_gen3"],
+                                    captureGlobalObjects: [],
+                                    clientAttributesEnabled: true,
+                                    clientAttributeMaxLength: 500,
+                                    resourcesRecordEnabled: true,
+                                    domIncludeCSSSelector: true,
+                                    resourcesRecordEnabled: true,
+                                    resourceRecordCssOnly: false,
+                                    resourcesRecordCount: 1,
+                                    resourcesRecordChance: 0.5,
+                                    resourcesRecordAllowCors: false,
+                                    collectStruggles: true,
+                                    collectFormStruggles: true,
+                                    resourceTimingRecordEnabled: true,
+                                    resourceTimingRecordEnabledByChance: 0.05,
+                                    webVitalsRecordEnabled: true,
+                                    recordScrollReach: true,
+                                    domFormAnalysisReporting: true,
+                                    domFormValidationTracking: true,
+                                    pageAttributesEnabled: true,
+                                    onReadyCallback: function(clss, clsv) {
+                                        if (ddo?.page?.attributes?.glassbox?.gbProfile === "credit_cards") {
+                                            window.addEventListener("popstate", (event) => {
+                                                if (window.location.href.indexOf("/#/") > -1) {
+                                                    function waitingForGB(count, delay, tries, gbdelay) {
+                                                        var count_local;
+                                                        var delay_local;
+                                                        var tries_local;
+                                                        var gb_delay;
+                                                        var elementExistGB = document.querySelector('#spinnerComplete');
+                                                        count_local = count;
+                                                        delay_local = delay;
+                                                        tries_local = tries;
+                                                        gb_delay = gbdelay;
+                                                        if (elementExistGB) {
+                                                            if (digitalData.cart.attributes.status) {
+                                                                _detector.triggerCustomEvent("GB_CCApplicationStatus", digitalData.cart.attributes.status);
+                                                            }
+                                                            if (digitalData.cart.attributes.campaignId) {
+                                                                _detector.triggerCustomEvent("GB_CCCampaignId", digitalData.cart.attributes.campaignId);
+                                                            }
+                                                            if (digitalData.cart.attributes.applicationId) {
+                                                                _detector.triggerCustomEvent("GB_CCAppRefNum", digitalData.cart.attributes.applicationId);
+                                                            }
+                                                            setTimeout(function() {
+                                                                _detector.triggerCustomEvent("customDomUpdate", "SpinnerDOMUpdate", undefined, true);
+                                                            }, gb_delay);
+                                                        } else if (count_local < tries_local) {
+                                                            setTimeout(function() {
+                                                                waitingForGB(count_local + 1, delay_local, tries_local)
+                                                            }, delay_local);
+                                                        } else {
+                                                            _detector.triggerCustomEvent("SpinnerLengthyTime", ">30seconds");
+                                                        }
+                                                    }
+                                                    waitingForGB(0, 300, 100, 750);
+                                                }
+                                            }
+                                            );
+                                        }
+                                        ;if (ddo?.page?.attributes?.glassbox?.gbProfile === "USA_Application") {
+                                            _detector.triggerCustomEvent('gb_app_and_js_ver', 'OLBUSACardAndDep_LLE_ver7_MayRelease');
+                                            _detector.triggerCustomEvent('gb_height', window.innerHeight);
+                                            _detector.triggerCustomEvent('gb_width', window.innerWidth);
+                                            if (ddo?.cart?.attributes?.sourceCode !== null && ddo?.cart?.attributes?.sourceCode !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USASourceCode_DDO", ddo?.cart?.attributes?.sourceCode);
+                                            }
+                                            if (ddo?.cart?.attributes?.orderID !== null && ddo?.cart?.attributes?.orderID !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USAOrderID_DDO", ddo?.cart?.attributes?.orderID);
+                                            }
+                                            if (ddo?.cart?.attributes?.campaignId !== null && ddo?.cart?.attributes?.campaignId !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USACampaignID_DDO", ddo?.cart?.attributes?.campaignId);
+                                            }
+                                            if (ddo?.page?.attributes?.chat?.SITE_ID !== null && ddo?.page?.attributes?.chat?.SITE_ID !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USASiteID", ddo?.page?.attributes?.chat?.SITE_ID);
+                                            }
+                                            if (ddo?.page?.attributes?.chat?.account_type !== null && ddo?.page?.attributes?.chat?.account_type !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USAAccountType", ddo?.page?.attributes?.chat?.account_type);
+                                            }
+                                            function getGBParameterByName(name, url=window.location.href) {
+                                                name = name.replace(/[\[\]]/g, '\\$&');
+                                                var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
+                                                  , results = regex.exec(url);
+                                                if (!results)
+                                                    return null;
+                                                if (!results[2])
+                                                    return '';
+                                                return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                                            }
+                                            const paramGBCardValueQS = getGBParameterByName('campaignId');
+                                            const paramGBDepositsValueQS = getGBParameterByName('productCode');
+                                            if (paramGBCardValueQS !== null && paramGBCardValueQS !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USACampaignID_QS", paramGBCardValueQS);
+                                            }
+                                            if (paramGBDepositsValueQS !== null && paramGBDepositsValueQS !== undefined) {
+                                                _detector.triggerCustomEvent("GB_USADepositProdCode_QS", paramGBDepositsValueQS);
+                                            }
+                                        }
+                                        if (ddo?.page?.attributes?.glassbox?.gbProfile === "USB_Associate") {
+                                            _detector.triggerCustomEvent('gb_app_and_js_ver', 'OLB_USB_Associtate_LLE_ver1_June6th2025');
+                                            _detector.triggerCustomEvent('gb_height', window.innerHeight);
+                                            _detector.triggerCustomEvent('gb_width', window.innerWidth);
+                                        }
+                                        if (ddo?.page?.attributes?.glassbox?.gbProfile === "USB_action_center") {
+                                            _detector.triggerCustomEvent('gb_app_and_js_ver', 'OLB_USB_Consumer_LLE_ver1_June6th2025');
+                                            _detector.triggerCustomEvent('gb_height', window.innerHeight);
+                                            _detector.triggerCustomEvent('gb_width', window.innerWidth);
+                                        }
+                                    }
+
+}
+
+const event = new Event("gbConfigReady")
+
+window.dispatchEvent(event);
