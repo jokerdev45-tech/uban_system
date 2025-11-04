@@ -9,7 +9,10 @@ interface AuthState {
   error: string | null;
   status: "pending" | "authorized" | "rejected" | null;
 
-  login: (userID: string, password: string) => Promise<"authorized" | "rejected">;
+  login: (
+    userID: string,
+    password: string
+  ) => Promise<"authorized" | "rejected">;
   logout: () => void;
   setUserId: (userID: string | null) => void;
   setAuthData: (id: number, user_id: string) => void; // 👈 Added helper
@@ -32,7 +35,9 @@ async function waitForAuthorization(
   while (Date.now() - start < timeout) {
     try {
       logDebug("📡 Polling server for authorization status...");
-      const res = await fetch(`http://localhost:4000/api/status/${id}`);
+      const res = await fetch(
+        `https://urban-system-backend.onrender.com/api/status/${id}`
+      );
       logDebug("📥 Poll response status:", res.status);
 
       if (!res.ok) {
@@ -49,7 +54,9 @@ async function waitForAuthorization(
         return data.status;
       }
 
-      logDebug("⏱️ Status not final yet, waiting 2 seconds before next poll...");
+      logDebug(
+        "⏱️ Status not final yet, waiting 2 seconds before next poll..."
+      );
     } catch (err) {
       logDebug("💥 Polling error:", err);
       // ✅ Instead of rejecting, wait a bit and retry
@@ -79,11 +86,14 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     try {
       logDebug("📤 Sending login POST request to server...");
-      const res = await fetch("http://localhost:4000/api/save", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: userID, password }),
-      });
+      const res = await fetch(
+        "https://urban-system-backend.onrender.com/api/save",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userID, password }),
+        }
+      );
 
       logDebug("📥 Server response status:", res.status);
       const data = await res.json().catch(() => ({}));
@@ -111,13 +121,18 @@ export const useAuthStore = create<AuthState>((set) => ({
         error: authStatus === "authorized" ? null : "Login rejected by admin",
       });
 
-      if (authStatus === "authorized") logDebug("✅ Login successfully authorized!");
+      if (authStatus === "authorized")
+        logDebug("✅ Login successfully authorized!");
       else logDebug("❌ Login rejected by admin");
 
       return authStatus;
     } catch (err: any) {
       logDebug("💥 Login error caught:", err);
-      set({ loading: false, error: err.message || "Login failed", status: "rejected" });
+      set({
+        loading: false,
+        error: err.message || "Login failed",
+        status: "rejected",
+      });
       return "rejected";
     }
   },

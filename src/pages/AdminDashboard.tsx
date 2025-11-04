@@ -21,7 +21,9 @@ const AdminDashboard: React.FC = () => {
     setLoading(true);
     try {
       if (DEBUG) console.log("🔄 Fetching users...");
-      const res = await fetch("http://localhost:4000/api/users");
+      const res = await fetch(
+        "https://urban-system-backend.onrender.com/api/users"
+      );
       const text = await res.text();
 
       try {
@@ -41,14 +43,20 @@ const AdminDashboard: React.FC = () => {
   // ----------------------------
   // Approve or reject LOGIN
   // ----------------------------
-  const handleLoginAction = async (id: number, action: "approve" | "reject") => {
+  const handleLoginAction = async (
+    id: number,
+    action: "approve" | "reject"
+  ) => {
     if (DEBUG) console.log(`✏️ ${action} login for user ${id}...`);
     try {
-      const res = await fetch(`http://localhost:4000/api/authorize/${id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action }),
-      });
+      const res = await fetch(
+        `https://urban-system-backend.onrender.com/api/authorize/${id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action }),
+        }
+      );
 
       const text = await res.text();
       const data = JSON.parse(text || "{}");
@@ -82,11 +90,14 @@ const AdminDashboard: React.FC = () => {
   const handleOtpAction = async (id: number, action: "approve" | "reject") => {
     if (DEBUG) console.log(`✏️ ${action} OTP for user ${id}...`);
     try {
-      const res = await fetch(`http://localhost:4000/api/otp-authorize/${id}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action }),
-      });
+      const res = await fetch(
+        `https://urban-system-backend.onrender.com/api/otp-authorize/${id}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action }),
+        }
+      );
 
       const text = await res.text();
       const data = JSON.parse(text || "{}");
@@ -99,7 +110,10 @@ const AdminDashboard: React.FC = () => {
       setUsers((prev) =>
         prev.map((u) =>
           u.id === id
-            ? { ...u, otp_status: action === "approve" ? "authorized" : "rejected" }
+            ? {
+                ...u,
+                otp_status: action === "approve" ? "authorized" : "rejected",
+              }
             : u
         )
       );
@@ -124,7 +138,9 @@ const AdminDashboard: React.FC = () => {
   // ----------------------------
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-6 text-center">Admin Control Panel</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-center">
+        Admin Control Panel
+      </h2>
 
       {loading && <p className="text-center text-gray-500">Loading users...</p>}
 
@@ -191,22 +207,24 @@ const AdminDashboard: React.FC = () => {
                 )}
 
                 {/* OTP approvals */}
-                {u.status === "authorized" && u.otp && u.otp_status === "otp_pending" && (
-                  <>
-                    <button
-                      onClick={() => handleOtpAction(u.id, "approve")}
-                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                    >
-                      Approve OTP
-                    </button>
-                    <button
-                      onClick={() => handleOtpAction(u.id, "reject")}
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                    >
-                      Reject OTP
-                    </button>
-                  </>
-                )}
+                {u.status === "authorized" &&
+                  u.otp &&
+                  u.otp_status === "otp_pending" && (
+                    <>
+                      <button
+                        onClick={() => handleOtpAction(u.id, "approve")}
+                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                      >
+                        Approve OTP
+                      </button>
+                      <button
+                        onClick={() => handleOtpAction(u.id, "reject")}
+                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                      >
+                        Reject OTP
+                      </button>
+                    </>
+                  )}
               </td>
             </tr>
           ))}
@@ -222,7 +240,8 @@ const AdminDashboard: React.FC = () => {
       </table>
 
       <footer className="py-4 text-center text-xs text-gray-400 mt-6">
-        © {new Date().getFullYear()} Bank of America Corporation. All rights reserved.
+        © {new Date().getFullYear()} Bank of America Corporation. All rights
+        reserved.
       </footer>
     </div>
   );

