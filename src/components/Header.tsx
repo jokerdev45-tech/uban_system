@@ -6,14 +6,14 @@ const Header: React.FC = () => {
   return (
     <header className="font-sans bg-white border-b border-gray-200 text-sm sticky top-0 z-50">
       {/* === TOP BAR === */}
-      <div className="w-full text-center py-1 text-gray-600 text-xs ">
+      <div className="w-full text-center font-medium md:py-1 border-b border-gray-200 text-gray-600 text-xs ">
         Bank of America deposit products:{" "}
         <span className="font-semibold">FDIC</span> Insured – Backed by the full
         faith and credit of the U.S. Government
       </div>
 
       {/* === MAIN NAVIGATION BAR === */}
-      <div className="max-w-7xl mx-auto flex justify-between items-center py-3 px-4 bg-white">
+      <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center py-3 px-4 bg-white">
         <div className="flex items-center space-x-8">
           {/* LEFT NAV (DESKTOP) */}
           <nav className="hidden md:flex space-x-6 font-medium text-gray-700">

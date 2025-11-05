@@ -20,18 +20,20 @@ const MobileMenu = () => {
 
   return (
     <div className="relative block md:hidden bg-white">
-      <div className="flex justify-between items-center gap-12 w-full px-4">
+      <div className="flex justify-between  items-center gap-12 w-full px-4">
         {/* === Mobile Menu Button === */}
         <button onClick={() => setIsOpen(true)} className="p-2 text-[#273B67] ">
           <List size={30} />
         </button>
 
         {/* === Logo + Label (Mobile Only) === */}
-        <a href="/" className="flex flex-col  md:hidden">
-          <img src={logo} alt="Bank of America Logo" className="h-8 w-auto " />
-          <p className="text-sm font-light text-center text-[#273B67]">
-            Fraud Prevention
-          </p>
+        <a href="/" className="flex flex-col items-center md:hidden">
+          <img
+            src={logo}
+            alt="Bank of America Logo"
+            className="h-8 w-auto leading-none align-bottom"
+          />
+          <p className="text-sm font-light text-[#273B67]">Fraud Prevention</p>
         </a>
       </div>
 

@@ -83,7 +83,7 @@ const BankLoader: React.FC<BankLoaderProps> = ({
     >
       <div className="flex items-center gap-4">
         <div
-          className={`rounded-full bg-gradient-to-br from-[#E6EEF8] to-[#DDE9F8] p-3 text-[#344E87]`}
+          className={`rounded-full bg-linear-to-br from-[#E6EEF8] to-[#DDE9F8] p-3 text-[#344E87]`}
         >
           <BankLogo size={sizePx * 0.6} />
         </div>
