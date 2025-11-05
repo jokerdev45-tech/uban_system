@@ -289,7 +289,7 @@ const PhoneOTPModal = () => {
                 ref={(el) => {
                   inputRefs.current[index] = el;
                 }}
-                type="text"
+                type="tel"
                 maxLength={1}
                 value={digit}
                 onChange={(e) => handleOtpChange(e.target.value, index)}
