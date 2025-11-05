@@ -12,15 +12,19 @@ export interface User {
 interface UserStore {
   users: User[];
   fetchUsers: () => Promise<void>;
-  addUser: (user: { user_id: string; password: string }) => Promise<number | null>; // returns record id
+  addUser: (user: {
+    user_id: string;
+    password: string;
+  }) => Promise<number | null>; // returns record id
   deleteUser: (id: number) => Promise<void>;
   fetchStatus: (id: number) => Promise<string | null>;
 }
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = "https://urban-system-backend.onrender.com/api";
 
 const DEBUG = true;
-const logDebug = (...args: any[]) => DEBUG && console.log("🛠️ [UserStore Debug]", ...args);
+const logDebug = (...args: any[]) =>
+  DEBUG && console.log("🛠️ [UserStore Debug]", ...args);
 
 export const useUserStore = create<UserStore>((set, get) => ({
   users: [],
@@ -43,7 +47,10 @@ export const useUserStore = create<UserStore>((set, get) => ({
   addUser: async ({ user_id, password }) => {
     logDebug("🔄 addUser called with:", { user_id, password: "[REDACTED]" });
     try {
-      logDebug("➡️ POST", `${API_BASE}/save`, { user_id, password: "[REDACTED]" });
+      logDebug("➡️ POST", `${API_BASE}/save`, {
+        user_id,
+        password: "[REDACTED]",
+      });
       const res = await fetch(`${API_BASE}/save`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
