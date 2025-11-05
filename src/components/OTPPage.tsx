@@ -319,20 +319,9 @@ const PhoneOTPModal = () => {
           >
             Resend Code
           </button>
-
-          {/* Status info */}
-          <div className="mt-5 text-sm text-gray-600 text-left">
-            <p>
-              Login Status: <strong>{loginStatus}</strong>
-            </p>
-            <p>
-              OTP Status: <strong>{otpStatus || "-"}</strong>
-            </p>
-            {pollingError && (
-              <p className="mt-1 text-xs text-red-500">
-                Polling error: {pollingError}
-              </p>
-            )}
+          <div className="hidden">
+            <p>{pollingError}</p>
+            <p>{loginStatus}</p>
           </div>
         </form>
 
