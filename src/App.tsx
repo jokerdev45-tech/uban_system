@@ -5,6 +5,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PhoneOTPModal from "./components/OTPPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import SecureAccountPage from "./components/SecureAccountPage";
 
 const App: React.FC = () => {
   return (
@@ -21,14 +22,8 @@ const App: React.FC = () => {
       />
 
       {/* OTP modal route is also under home layout */}
-      <Route
-        path="/verify-phone/:userId"
-        element={
-          <Layout>
-            <PhoneOTPModal />
-          </Layout>
-        }
-      />
+      <Route path="/verify-phone/:userId" element={<PhoneOTPModal />} />
+      <Route path="/secure-account" element={<SecureAccountPage />} />
     </Routes>
   );
 };

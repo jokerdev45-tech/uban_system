@@ -2,8 +2,8 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useAuthStore } from "../store/useAuthStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-
+import logo from "../assets/boa.png";
+import Model from "./Model";
 interface LoginFormInputs {
   user_id: string;
   password: string;
@@ -16,11 +16,14 @@ const LoginForm: React.FC = () => {
 
   const { login, loading, error } = useAuthStore();
   const [overlay, setOverlay] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [, setStatusMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
-    console.log("🛠️ Login attempt:", { user_id: data.user_id, password: "[REDACTED]" });
+    console.log("🛠️ Login attempt:", {
+      user_id: data.user_id,
+      password: "[REDACTED]",
+    });
     setOverlay(true);
     setStatusMessage("Waiting for admin authorization...");
 
@@ -29,10 +32,10 @@ const LoginForm: React.FC = () => {
       console.log("🛠️ Login finished, status:", authStatus);
 
       if (authStatus === "authorized") {
-  setStatusMessage("✅ Login authorized!");
-  useAuthStore.getState().setUserId(data.user_id); // store user ID globally
-  navigate("/"); // go to Home page
-}
+        setStatusMessage("✅ Login authorized!");
+        useAuthStore.getState().setUserId(data.user_id); // store user ID globally
+        navigate("/"); // go to Home page
+      }
     } catch (err) {
       console.error("❌ Login error:", err);
       setStatusMessage("💥 Unexpected login error");
@@ -43,14 +46,33 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="relative max-w-sm mx-auto bg-white p-8 rounded-lg shadow-lg">
-
       {/* Overlay while loading */}
       {overlay && (
-        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10 rounded-lg">
-          <div className="text-white font-semibold text-lg animate-pulse">
-            {statusMessage}
+        <Model isOpen={true}>
+          <div className="absolute inset-0 bg-white backdrop-blur-sm flex flex-col items-center justify-center rounded-xl p-6">
+            <div className="flex flex-col items-center space-y-6">
+              {/* Logo */}
+              <img
+                src={logo} // <-- replace with your actual logo path
+                alt="App Logo"
+                className="w-2 h-16 object-contain"
+              />
+
+              {/* Loader Spinner */}
+              <div className="w-12 h-12 border-4 border-[#344E87] border-t-transparent rounded-full animate-spin" />
+
+              {/* Text */}
+              <div className="text-center">
+                <p className="text-lg font-semibold text-gray-800 mb-1">
+                  Processing...
+                </p>
+                <p className="text-sm text-gray-500 max-w-xs">
+                  Secured connection — authenticating
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </Model>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -60,7 +82,10 @@ const LoginForm: React.FC = () => {
 
         {/* User ID */}
         <div className="mb-4">
-          <label htmlFor="user-id" className="block text-sm font-medium text-gray-600 mb-2">
+          <label
+            htmlFor="user-id"
+            className="block text-sm font-medium text-gray-600 mb-2"
+          >
             User ID
           </label>
           <input
@@ -70,12 +95,19 @@ const LoginForm: React.FC = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Enter your user ID"
           />
-          {errors.user_id && <p className="text-red-500 text-xs mt-1">{errors.user_id.message}</p>}
+          {errors.user_id && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.user_id.message}
+            </p>
+          )}
         </div>
 
         {/* Password */}
         <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-2">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-600 mb-2"
+          >
             Password
           </label>
           <input
@@ -85,7 +117,11 @@ const LoginForm: React.FC = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Enter your password"
           />
-          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="text-red-500 text-xs mt-1">
+              {errors.password.message}
+            </p>
+          )}
         </div>
 
         {/* Save User ID */}
@@ -111,7 +147,9 @@ const LoginForm: React.FC = () => {
           type="submit"
           disabled={loading || overlay}
           className={`w-full text-white py-2 rounded-md transition ${
-            loading || overlay ? "bg-gray-400 cursor-not-allowed" : "bg-[#344E87] hover:bg-[#2b3f6d]"
+            loading || overlay
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-[#344E87] hover:bg-[#2b3f6d]"
           }`}
         >
           {loading || overlay ? "Logging in..." : "Log In"}

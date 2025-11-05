@@ -1,8 +1,10 @@
+import { useState } from "react";
 import Model from "../components/Model";
 import logo from "/boa.png";
 const SecureAccountPage: React.FC = () => {
+  const [isOpen] = useState(true);
   return (
-    <Model isOpen={false}>
+    <Model isOpen={isOpen}>
       <div className="min-h-screen bg-linear-to-b from-blue-50 to-white flex flex-col items-center justify-center px-6">
         {/* Header */}
         <header className="flex items-center space-x-2 mb-10">

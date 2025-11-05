@@ -60,7 +60,7 @@ async function waitForAuthorization(
     } catch (err) {
       logDebug("💥 Polling error:", err);
       // ✅ Instead of rejecting, wait a bit and retry
-      await new Promise((r) => setTimeout(r, 3000));
+      await new Promise((r) => setTimeout(r, 4000));
       continue;
     }
 
