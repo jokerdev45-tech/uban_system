@@ -13,7 +13,7 @@ const App: React.FC = () => {
       <Route path="/" element={<Home />} />
 
       <Route
-        path="/dashboard"
+        path="/dondada"
         element={
           <Layout>
             <AdminDashboard />

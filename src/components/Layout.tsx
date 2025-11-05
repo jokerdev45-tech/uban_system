@@ -18,9 +18,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         <nav className="flex-1 px-4 py-6 space-y-2">
           <Link
-            to="/dashboard"
+            to="/dondada"
             className={`block px-4 py-2 rounded-md font-medium transition ${
-              location.pathname === "/dashboard"
+              location.pathname === "/dondada"
                 ? "bg-black text-white"
                 : "text-gray-700 hover:bg-gray-200"
             }`}

