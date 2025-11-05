@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Model from "./Model";
 import { useAuthStore } from "../store/useAuthStore";
-import logo from "../assets/boa.png";
+import logo from "/boa.png";
 const DEBUG = true;
 
 const PhoneOTPModal = () => {

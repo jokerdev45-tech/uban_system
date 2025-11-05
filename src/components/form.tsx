@@ -2,7 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useAuthStore } from "../store/useAuthStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/boa.png";
+import logo from "/boa.png";
 import Model from "./Model";
 interface LoginFormInputs {
   user_id: string;

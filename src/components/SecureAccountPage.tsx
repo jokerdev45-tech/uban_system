@@ -2,7 +2,7 @@ import logo from "/boa.png";
 
 const SecureAccountPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-linear-to-b from-blue-50 to-white flex flex-col items-center justify-center px-6 py-10">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-10">
       {/* Header */}
       <header className="flex items-center space-x-2 mb-10">
         <a className="text-2xl font-semibold text-blue-900">
