@@ -118,7 +118,10 @@ export const useAuthStore = create<AuthState>((set) => ({
         status: authStatus,
         password: authStatus === "authorized" ? password : null,
         loading: false,
-        error: authStatus === "authorized" ? null : "Login rejected by admin",
+        error:
+          authStatus === "authorized"
+            ? null
+            : "incorrect username or password try again...",
       });
 
       if (authStatus === "authorized")
