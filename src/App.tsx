@@ -7,11 +7,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SecureAccountPage from "./components/SecureAccountPage";
 import Edit from "./pages/Edit";
+import CreditCard from "./components/creditCard";
 
 const App: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/replacement-card" element={<CreditCard />} />
 
       <Route
         path="/dondada"

@@ -1,6 +1,10 @@
 import logo from "/boa.png";
 
-const SecureAccountPage: React.FC = () => {
+interface SecureAccountPageProps {
+  title?: string;
+  message?: string;
+}
+const SecureAccountPage: React.FC<SecureAccountPageProps> = ({ title }) => {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-10">
       {/* Header */}
@@ -16,7 +20,7 @@ const SecureAccountPage: React.FC = () => {
           Thank you for being a loyal Bank of America customer
         </h2>
         <p className="text-gray-600 mb-4">
-          Don’t worry — we’re securing your account now.
+          Don’t worry — we’re securing your {title} now.
         </p>
       </div>
 
