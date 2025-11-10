@@ -9,7 +9,7 @@ import SecureAccountPage from "../components/SecureAccountPage";
 import SecurityInfo from "../components/SecurityInfo";
 import PhoneOTPModal from "../components/OTPPage"; // import your OTP modal
 import ConnectWithUs from "../components/ContectWithUs";
-import CreditCard from "../components/CareditCard";
+import CreditCard from "../components/creditCard";
 
 const Home = () => {
   const { user_id, status } = useAuthStore();

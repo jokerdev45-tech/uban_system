@@ -6,6 +6,7 @@ import PhoneOTPModal from "./components/OTPPage";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import SecureAccountPage from "./components/SecureAccountPage";
+import Edit from "./pages/Edit";
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,14 @@ const App: React.FC = () => {
         element={
           <Layout>
             <AdminDashboard />
+          </Layout>
+        }
+      />
+      <Route
+        path="/users"
+        element={
+          <Layout>
+            <Edit />
           </Layout>
         }
       />
